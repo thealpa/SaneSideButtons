@@ -64,7 +64,6 @@ static CGEventRef SBFMouseCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 
 typedef NS_ENUM(NSInteger, MenuMode) {
     MenuModeAccessibility,
-    MenuModeDonation,
     MenuModeNormal
 };
 
@@ -78,10 +77,9 @@ typedef NS_ENUM(NSInteger, MenuItem) {
     MenuItemStartupHideInfo,
     MenuItemStartupSeparator,
     MenuItemAboutText,
-    MenuItemAboutSeparator,
-    MenuItemDonate,
-    MenuItemWebsite,
     MenuItemAccessibility,
+    MenuItemAccessibilitySeparator,
+    MenuItemLicenses,
     MenuItemLinkSeparator,
     MenuItemQuit
 };
@@ -126,7 +124,6 @@ typedef NS_ENUM(NSInteger, MenuItem) {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
                                                               @"SBFWasEnabled": @YES,
                                                               @"SBFMouseDown": @YES,
-                                                              @"SBFDonated": @NO,
                                                               @"SBFSwapButtons": @NO
                                                               }];
     
@@ -185,11 +182,11 @@ typedef NS_ENUM(NSInteger, MenuItem) {
         assert(menu.itemArray.count - 1 == MenuItemOptionsSeparator);
         
         
-        NSMenuItem* hideItem = [[NSMenuItem alloc] initWithTitle:@"Hide Menu Bar Icon" action:@selector(hideMenubarItem:) keyEquivalent:@""];
+        NSMenuItem* hideItem = [[NSMenuItem alloc] initWithTitle:@"Hide Menu Bar Icon" action:@selector(hideMenubarItem:) keyEquivalent:@"h"];
         [menu addItem:hideItem];
         assert(menu.itemArray.count - 1 == MenuItemStartupHide);
         
-        NSMenuItem* hideInfoItem = [[NSMenuItem alloc] initWithTitle:@"Relaunch application to show again" action:NULL keyEquivalent:@""];
+        NSMenuItem* hideInfoItem = [[NSMenuItem alloc] initWithTitle:@"Relaunch app to show again" action:NULL keyEquivalent:@""];
         [hideInfoItem setEnabled:NO];
         [menu addItem:hideInfoItem];
         assert(menu.itemArray.count - 1 == MenuItemStartupHideInfo);
@@ -197,24 +194,20 @@ typedef NS_ENUM(NSInteger, MenuItem) {
         [menu addItem:[NSMenuItem separatorItem]];
         assert(menu.itemArray.count - 1 == MenuItemStartupSeparator);
         
-        AboutView* text = [[AboutView alloc] initWithFrame:NSMakeRect(0, 0, 320, 100)]; //arbitrary height
+        AboutView* text = [[AboutView alloc] initWithFrame:NSMakeRect(0, 0, 200, 100)]; //arbitrary height
         NSMenuItem* aboutText = [[NSMenuItem alloc] initWithTitle:@"Text" action:NULL keyEquivalent:@""];
         aboutText.view = text;
         [menu addItem:aboutText];
         assert(menu.itemArray.count - 1 == MenuItemAboutText);
         
-        [menu addItem:[NSMenuItem separatorItem]];
-        assert(menu.itemArray.count - 1 == MenuItemAboutSeparator);
-        
-        NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey];
-        [menu addItem:[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ Website", appName] action:@selector(donate:) keyEquivalent:@""]];
-        assert(menu.itemArray.count - 1 == MenuItemDonate);
-        
-        [menu addItem:[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ Website", appName] action:@selector(website:) keyEquivalent:@""]];
-        assert(menu.itemArray.count - 1 == MenuItemWebsite);
-        
-        [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Open Accessibility Whitelist" action:@selector(accessibility:) keyEquivalent:@""]];
+        [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Open Accessibility Settings" action:@selector(accessibility:) keyEquivalent:@""]];
         assert(menu.itemArray.count - 1 == MenuItemAccessibility);
+        
+        [menu addItem:[NSMenuItem separatorItem]];
+        assert(menu.itemArray.count - 1 == MenuItemAccessibilitySeparator);
+        
+        [menu addItem:[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Licenses"] action:@selector(licenses:) keyEquivalent:@""]];
+        assert(menu.itemArray.count - 1 == MenuItemLicenses);
         
         [menu addItem:[NSMenuItem separatorItem]];
         assert(menu.itemArray.count - 1 == MenuItemLinkSeparator);
@@ -241,22 +234,13 @@ typedef NS_ENUM(NSInteger, MenuItem) {
     // TODO: this actually returns YES if SSB is deleted (not disabled) from Accessibility
     NSDictionary* options = @{ (__bridge id)kAXTrustedCheckOptionPrompt: @(active ? YES : NO) };
     BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
-    //BOOL accessibilityEnabled = YES; //is accessibility even required? seems to work fine without it
     
     if (accessibilityEnabled) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBFDonated"]) {
-            self.menuMode = MenuModeNormal;
-        }
-        else {
-            self.menuMode = MenuModeDonation;
-        }
+        self.menuMode = MenuModeNormal;
     }
     else {
         self.menuMode = MenuModeAccessibility;
     }
-    
-    // QQQ: for testing
-    //self.menuMode = arc4random_uniform(3);
 }
 
 -(void) refreshSettings {
@@ -269,25 +253,17 @@ typedef NS_ENUM(NSInteger, MenuItem) {
             self.statusItem.menu.itemArray[MenuItemEnabled].enabled = NO;
             self.statusItem.menu.itemArray[MenuItemTriggerOnMouseDown].enabled = NO;
             self.statusItem.menu.itemArray[MenuItemSwapButtons].enabled = NO;
-            self.statusItem.menu.itemArray[MenuItemDonate].hidden = YES;
-            self.statusItem.menu.itemArray[MenuItemWebsite].hidden = NO;
+            self.statusItem.menu.itemArray[MenuItemLicenses].hidden = NO;
             self.statusItem.menu.itemArray[MenuItemAccessibility].hidden = NO;
-            break;
-        case MenuModeDonation:
-            self.statusItem.menu.itemArray[MenuItemEnabled].enabled = YES;
-            self.statusItem.menu.itemArray[MenuItemTriggerOnMouseDown].enabled = YES;
-            self.statusItem.menu.itemArray[MenuItemSwapButtons].enabled = YES;
-            self.statusItem.menu.itemArray[MenuItemDonate].hidden = NO;
-            self.statusItem.menu.itemArray[MenuItemWebsite].hidden = YES;
-            self.statusItem.menu.itemArray[MenuItemAccessibility].hidden = YES;
+            self.statusItem.menu.itemArray[MenuItemAccessibilitySeparator].hidden = NO;
             break;
         case MenuModeNormal:
             self.statusItem.menu.itemArray[MenuItemEnabled].enabled = YES;
             self.statusItem.menu.itemArray[MenuItemTriggerOnMouseDown].enabled = YES;
             self.statusItem.menu.itemArray[MenuItemSwapButtons].enabled = YES;
-            self.statusItem.menu.itemArray[MenuItemDonate].hidden = YES;
-            self.statusItem.menu.itemArray[MenuItemWebsite].hidden = NO;
+            self.statusItem.menu.itemArray[MenuItemLicenses].hidden = NO;
             self.statusItem.menu.itemArray[MenuItemAccessibility].hidden = YES;
+            self.statusItem.menu.itemArray[MenuItemAccessibilitySeparator].hidden = YES;
             break;
     }
     
@@ -361,16 +337,9 @@ typedef NS_ENUM(NSInteger, MenuItem) {
     [self refreshSettings];
 }
 
--(void) donate:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://sensible-side-buttons.archagon.net#donations"]];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SBFDonated"];
-    
-    [self updateMenuMode];
-    [self refreshSettings];
-}
-
--(void) website:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://sensible-side-buttons.archagon.net"]];
+-(void) licenses:(id)sender {
+    NSURL *url = [[NSBundle bundleForClass:self.class] URLForResource:@"Licenses" withExtension:@"txt"];
+    [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
 -(void) accessibility:(id)sender {
@@ -399,7 +368,7 @@ typedef NS_ENUM(NSInteger, MenuItem) {
 @implementation AboutView
 
 -(CGFloat) margin {
-    return 17;
+    return 19;
 }
 
 -(void) setMenuMode:(MenuMode)menuMode {
@@ -445,40 +414,24 @@ typedef NS_ENUM(NSInteger, MenuItem) {
                                             };
     
     NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey];
-    NSString* appDescription = [NSString stringWithFormat:@"%@ %@", appName, [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    NSString* copyright = @"Copyright © 2018 Alexei Baboulevitch.";
+    NSString* appVersion = [NSString stringWithFormat:@"%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     
     switch (menuMode) {
         case MenuModeAccessibility: {
-            NSString* text = [NSString stringWithFormat:@"Uh-oh! It looks like %@ is not whitelisted in the Accessibility panel of your Security & Privacy System Preferences. This app needs to be on the Accessibility whitelist in order to process global mouse events. Please open the Accessibility panel below and add the app to the whitelist.", appDescription];
+            NSString* text = [NSString stringWithFormat:@"Please open the Accessiblity panel of your Security & Privacy System Preferences and add %@ to the whitelist.", appName];
             
             NSMutableAttributedString* string = [[NSMutableAttributedString alloc] initWithString:text attributes:alertAttributes];
-            [string addAttribute:NSFontAttributeName value:boldFont range:[text rangeOfString:appDescription]];
             [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:regularAttributes]];
             [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:smallReturnAttributes]];
-            [string appendAttributedString:[[NSAttributedString alloc] initWithString:copyright attributes:regularAttributes]];
-            
-            [self.text.textStorage setAttributedString:string];
-        } break;
-        case MenuModeDonation: {
-            NSString* text = [NSString stringWithFormat:@"Thanks for using %@!\nIf you find this utility useful, please consider making a purchase through the Amazon affiliate link on the website below. It won't cost you an extra cent! 😊", appDescription];
-            
-            NSMutableAttributedString* string = [[NSMutableAttributedString alloc] initWithString:text attributes:regularAttributes];
-            [string addAttribute:NSFontAttributeName value:boldFont range:[text rangeOfString:appDescription]];
-            [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:regularAttributes]];
-            [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:smallReturnAttributes]];
-            [string appendAttributedString:[[NSAttributedString alloc] initWithString:copyright attributes:regularAttributes]];
             
             [self.text.textStorage setAttributedString:string];
         } break;
         case MenuModeNormal: {
-            NSString* text = [NSString stringWithFormat:@"Thanks for using %@!", appDescription];
+            NSString* text = [NSString stringWithFormat:@"%@ %@", appName, appVersion];
             
             NSMutableAttributedString* string = [[NSMutableAttributedString alloc] initWithString:text attributes:regularAttributes];
-            [string addAttribute:NSFontAttributeName value:boldFont range:[text rangeOfString:appDescription]];
             [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:regularAttributes]];
             [string appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:smallReturnAttributes]];
-            [string appendAttributedString:[[NSAttributedString alloc] initWithString:copyright attributes:regularAttributes]];
             
             [self.text.textStorage setAttributedString:string];
         } break;
@@ -522,7 +475,7 @@ typedef NS_ENUM(NSInteger, MenuItem) {
         [self.text sizeToFit];
         
         // finally, position the view correctly
-        self.text.frame = NSMakeRect(self.text.frame.origin.x, self.bounds.size.height - self.text.frame.size.height, self.text.frame.size.width, self.text.frame.size.height);
+        self.text.frame = NSMakeRect(self.text.frame.origin.x, self.bounds.size.height - self.text.frame.size.height - 3, self.text.frame.size.width, self.text.frame.size.height);
     }
     
     //NSView* testView = [self subviews][0];
