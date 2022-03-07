@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, MenuItem) {
         menu.autoenablesItems = NO;
         menu.delegate = self;
         
-        NSMenuItem* enabledItem = [[NSMenuItem alloc] initWithTitle:@"Enabled" action:@selector(enabledToggle:) keyEquivalent:@"e"];
+        NSMenuItem* enabledItem = [[NSMenuItem alloc] initWithTitle:@"Enable" action:@selector(enabledToggle:) keyEquivalent:@"e"];
         [menu addItem:enabledItem];
         assert(menu.itemArray.count - 1 == MenuItemEnabled);
         
