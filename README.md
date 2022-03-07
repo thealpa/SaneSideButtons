@@ -1,14 +1,13 @@
+# SaneSideButtons
 <p align="center">
 	<img src="icon.png" width=150 />
 </p>
-
-# SaneSideButtons
 
 macOS mostly ignores the M4/M5 mouse buttons, commonly used for navigation. Third-party apps can bind them to ⌘+[ and ⌘+], but this only works in a small number of apps and feels janky. With this tool, your side buttons will simulate 3-finger swipes, allowing you to navigate almost any window with a history. As seen in the Logitech MX Master!
 
 ## About SaneSideButtons
 
-SaneSideButtons is a fork of the abandoned [SensibleSideButtons](https://github.com/archagon/sensible-side-buttons) by Alexei Baboulevitch. More information about SensibleSideButtons can be found on his [website](https://sensible-side-buttons.archagon.net/).
+SaneSideButtons is a fork of the abandoned [SensibleSideButtons](https://github.com/archagon/sensible-side-buttons) by Alexei Baboulevitch. More information about SensibleSideButtons can be found on his [website](https://sensible-side-buttons.archagon.net/). Please consider using his [Amazon affiliate link](http://amzn.to/2tlwbAB) when making any purchase.
 
 Starting with version 1.0.7 SaneSideButtons is maintained by [Jan Hülsmann](https://github.com/thealpa) and offers native Apple Silicon support.
 
