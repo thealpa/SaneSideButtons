@@ -19,7 +19,7 @@ Starting with version 1.0.7 SaneSideButtons is maintained by [Jan Hülsmann](htt
 ## Automatic launch
 To launch SaneSideButtons automatically when you log in on your Mac:
 
-1. Click the System Preferences icon in the Dick or choose Apple menu  > System Preferences.
+1. Click the System Preferences icon in the Dock or choose Apple menu  > System Preferences.
 2. Open the Users & Groups preference pane.
 3. Select your username in the left panel.
 4. Click on Login Items at the top.
