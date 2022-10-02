@@ -11,9 +11,17 @@ SaneSideButtons is a fork of the abandoned [SensibleSideButtons](https://github.
 
 Starting with version 1.0.7 SaneSideButtons is maintained by [Jan Hülsmann](https://github.com/thealpa) and offers native Apple Silicon support.
 
+## Installation
+
+Download SaneSideButtons from [here](https://github.com/thealpa/SaneSideButtons/releases/download/1.1.0/SaneSideButtons.dmg) or install using Homebrew:
+
+```bash
+brew install --cask sanesidebuttons
+```
+
 ## Compatibility
 
-- macOS Big Sur (11.0) and above.
+- macOS Big Sur (11.0) and above
 - Intel and Apple Silicon
 
 ## Automatic launch
