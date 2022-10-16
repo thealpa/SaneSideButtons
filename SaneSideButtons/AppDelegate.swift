@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 // MARK: - Functions
 
 private extension AppDelegate {
-    private func setupMenuBarExtra() {
+    @MainActor private func setupMenuBarExtra() {
         if let button = self.menuBarExtra.button {
             button.image = NSImage(named: "MenuIcon")
         }
@@ -106,12 +106,12 @@ private extension AppDelegate {
         self.menuBarExtra.isVisible = false
     }
 
-    @objc private func about() {
+    @MainActor @objc private func about() {
         NSApplication.shared.activate(ignoringOtherApps: true)
         NSApplication.shared.orderFrontStandardAboutPanel()
     }
 
-    @objc private func quit() {
+    @MainActor @objc private func quit() {
         NSApplication.shared.terminate(nil)
     }
 
