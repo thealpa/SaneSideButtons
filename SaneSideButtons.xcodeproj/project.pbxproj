@@ -7,31 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3DAF24AA28FB7268001D5B05 /* SaneSideButtonsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAF24A928FB7268001D5B05 /* SaneSideButtonsApp.swift */; };
-		3DAF24AE28FB7269001D5B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DAF24AD28FB7269001D5B05 /* Assets.xcassets */; };
-		3DAF24B128FB7269001D5B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DAF24B028FB7269001D5B05 /* Preview Assets.xcassets */; };
-		3DAF24B928FB7290001D5B05 /* SwipeSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAF24B828FB7290001D5B05 /* SwipeSimulator.swift */; };
-		3DAF24BD28FB72DF001D5B05 /* TouchEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DAF24BC28FB72DE001D5B05 /* TouchEvents.c */; };
-		3DAF24C228FB733F001D5B05 /* Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3DAF24C128FB733F001D5B05 /* Licenses.txt */; };
+		3D0687F128FC3A6D00EFFFBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0687F028FC3A6D00EFFFBA /* AppDelegate.swift */; };
+		3D0687F528FC3A6E00EFFFBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0687F428FC3A6E00EFFFBA /* Assets.xcassets */; };
+		3D06880428FC3B0D00EFFFBA /* TouchEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880328FC3B0D00EFFFBA /* TouchEvents.c */; };
+		3D06880728FC3B4C00EFFFBA /* SwipeSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */; };
+		3D06880928FC3B8200EFFFBA /* Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D06880828FC3B8200EFFFBA /* Licenses.txt */; };
+		3D06880B28FC3D0900EFFFBA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880A28FC3D0800EFFFBA /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3DAF24A628FB7268001D5B05 /* SaneSideButtons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaneSideButtons.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DAF24A928FB7268001D5B05 /* SaneSideButtonsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaneSideButtonsApp.swift; sourceTree = "<group>"; };
-		3DAF24AD28FB7269001D5B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3DAF24B028FB7269001D5B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3DAF24B228FB7269001D5B05 /* SaneSideButtons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SaneSideButtons.entitlements; sourceTree = "<group>"; };
-		3DAF24B828FB7290001D5B05 /* SwipeSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeSimulator.swift; sourceTree = "<group>"; };
-		3DAF24BB28FB72DE001D5B05 /* SaneSideButtons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SaneSideButtons-Bridging-Header.h"; sourceTree = "<group>"; };
-		3DAF24BC28FB72DE001D5B05 /* TouchEvents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TouchEvents.c; sourceTree = "<group>"; };
-		3DAF24BE28FB72EE001D5B05 /* TouchEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchEvents.h; sourceTree = "<group>"; };
-		3DAF24BF28FB7323001D5B05 /* IOHIDEventTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHIDEventTypes.h; sourceTree = "<group>"; };
-		3DAF24C028FB7328001D5B05 /* IOHIDEventData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHIDEventData.h; sourceTree = "<group>"; };
-		3DAF24C128FB733F001D5B05 /* Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licenses.txt; sourceTree = "<group>"; };
+		3D0687ED28FC3A6D00EFFFBA /* SaneSideButtons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaneSideButtons.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0687F028FC3A6D00EFFFBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3D0687F428FC3A6E00EFFFBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D0687F928FC3A6E00EFFFBA /* SaneSideButtons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SaneSideButtons.entitlements; sourceTree = "<group>"; };
+		3D06880028FC3AF000EFFFBA /* IOHIDEventData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHIDEventData.h; sourceTree = "<group>"; };
+		3D06880128FC3AFB00EFFFBA /* TouchEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchEvents.h; sourceTree = "<group>"; };
+		3D06880228FC3B0C00EFFFBA /* SaneSideButtons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SaneSideButtons-Bridging-Header.h"; sourceTree = "<group>"; };
+		3D06880328FC3B0D00EFFFBA /* TouchEvents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TouchEvents.c; sourceTree = "<group>"; };
+		3D06880528FC3B1700EFFFBA /* IOHIDEventTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHIDEventTypes.h; sourceTree = "<group>"; };
+		3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeSimulator.swift; sourceTree = "<group>"; };
+		3D06880828FC3B8200EFFFBA /* Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licenses.txt; sourceTree = "<group>"; };
+		3D06880A28FC3D0800EFFFBA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3DAF24A328FB7268001D5B05 /* Frameworks */ = {
+		3D0687EA28FC3A6D00EFFFBA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,52 +41,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3DAF249D28FB7268001D5B05 = {
+		3D0687E428FC3A6D00EFFFBA = {
 			isa = PBXGroup;
 			children = (
-				3DAF24A828FB7268001D5B05 /* SaneSideButtons */,
-				3DAF24BA28FB72AC001D5B05 /* External */,
-				3DAF24A728FB7268001D5B05 /* Products */,
+				3D0687EF28FC3A6D00EFFFBA /* SaneSideButtons */,
+				3D0687FF28FC3AD700EFFFBA /* External */,
+				3D0687EE28FC3A6D00EFFFBA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3DAF24A728FB7268001D5B05 /* Products */ = {
+		3D0687EE28FC3A6D00EFFFBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DAF24A628FB7268001D5B05 /* SaneSideButtons.app */,
+				3D0687ED28FC3A6D00EFFFBA /* SaneSideButtons.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3DAF24A828FB7268001D5B05 /* SaneSideButtons */ = {
+		3D0687EF28FC3A6D00EFFFBA /* SaneSideButtons */ = {
 			isa = PBXGroup;
 			children = (
-				3DAF24A928FB7268001D5B05 /* SaneSideButtonsApp.swift */,
-				3DAF24B828FB7290001D5B05 /* SwipeSimulator.swift */,
-				3DAF24C128FB733F001D5B05 /* Licenses.txt */,
-				3DAF24AD28FB7269001D5B05 /* Assets.xcassets */,
-				3DAF24B228FB7269001D5B05 /* SaneSideButtons.entitlements */,
-				3DAF24AF28FB7269001D5B05 /* Preview Content */,
+				3D06880A28FC3D0800EFFFBA /* main.swift */,
+				3D0687F028FC3A6D00EFFFBA /* AppDelegate.swift */,
+				3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */,
+				3D06880828FC3B8200EFFFBA /* Licenses.txt */,
+				3D0687F428FC3A6E00EFFFBA /* Assets.xcassets */,
+				3D0687F928FC3A6E00EFFFBA /* SaneSideButtons.entitlements */,
 			);
 			path = SaneSideButtons;
 			sourceTree = "<group>";
 		};
-		3DAF24AF28FB7269001D5B05 /* Preview Content */ = {
+		3D0687FF28FC3AD700EFFFBA /* External */ = {
 			isa = PBXGroup;
 			children = (
-				3DAF24B028FB7269001D5B05 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		3DAF24BA28FB72AC001D5B05 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				3DAF24BB28FB72DE001D5B05 /* SaneSideButtons-Bridging-Header.h */,
-				3DAF24BE28FB72EE001D5B05 /* TouchEvents.h */,
-				3DAF24BC28FB72DE001D5B05 /* TouchEvents.c */,
-				3DAF24BF28FB7323001D5B05 /* IOHIDEventTypes.h */,
-				3DAF24C028FB7328001D5B05 /* IOHIDEventData.h */,
+				3D06880228FC3B0C00EFFFBA /* SaneSideButtons-Bridging-Header.h */,
+				3D06880128FC3AFB00EFFFBA /* TouchEvents.h */,
+				3D06880328FC3B0D00EFFFBA /* TouchEvents.c */,
+				3D06880528FC3B1700EFFFBA /* IOHIDEventTypes.h */,
+				3D06880028FC3AF000EFFFBA /* IOHIDEventData.h */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -94,13 +86,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3DAF24A528FB7268001D5B05 /* SaneSideButtons */ = {
+		3D0687EC28FC3A6D00EFFFBA /* SaneSideButtons */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DAF24B528FB7269001D5B05 /* Build configuration list for PBXNativeTarget "SaneSideButtons" */;
+			buildConfigurationList = 3D0687FC28FC3A6E00EFFFBA /* Build configuration list for PBXNativeTarget "SaneSideButtons" */;
 			buildPhases = (
-				3DAF24A228FB7268001D5B05 /* Sources */,
-				3DAF24A328FB7268001D5B05 /* Frameworks */,
-				3DAF24A428FB7268001D5B05 /* Resources */,
+				3D06880C28FC3EA700EFFFBA /* ShellScript */,
+				3D0687E928FC3A6D00EFFFBA /* Sources */,
+				3D0687EA28FC3A6D00EFFFBA /* Frameworks */,
+				3D0687EB28FC3A6D00EFFFBA /* Resources */,
 			);
 			buildRules = (
 			);
@@ -108,26 +101,26 @@
 			);
 			name = SaneSideButtons;
 			productName = SaneSideButtons;
-			productReference = 3DAF24A628FB7268001D5B05 /* SaneSideButtons.app */;
+			productReference = 3D0687ED28FC3A6D00EFFFBA /* SaneSideButtons.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3DAF249E28FB7268001D5B05 /* Project object */ = {
+		3D0687E528FC3A6D00EFFFBA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
-					3DAF24A528FB7268001D5B05 = {
+					3D0687EC28FC3A6D00EFFFBA = {
 						CreatedOnToolsVersion = 14.1;
 						LastSwiftMigration = 1410;
 					};
 				};
 			};
-			buildConfigurationList = 3DAF24A128FB7268001D5B05 /* Build configuration list for PBXProject "SaneSideButtons" */;
+			buildConfigurationList = 3D0687E828FC3A6D00EFFFBA /* Build configuration list for PBXProject "SaneSideButtons" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -135,44 +128,65 @@
 				en,
 				Base,
 			);
-			mainGroup = 3DAF249D28FB7268001D5B05;
-			productRefGroup = 3DAF24A728FB7268001D5B05 /* Products */;
+			mainGroup = 3D0687E428FC3A6D00EFFFBA;
+			productRefGroup = 3D0687EE28FC3A6D00EFFFBA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3DAF24A528FB7268001D5B05 /* SaneSideButtons */,
+				3D0687EC28FC3A6D00EFFFBA /* SaneSideButtons */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3DAF24A428FB7268001D5B05 /* Resources */ = {
+		3D0687EB28FC3A6D00EFFFBA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DAF24B128FB7269001D5B05 /* Preview Assets.xcassets in Resources */,
-				3DAF24C228FB733F001D5B05 /* Licenses.txt in Resources */,
-				3DAF24AE28FB7269001D5B05 /* Assets.xcassets in Resources */,
+				3D06880928FC3B8200EFFFBA /* Licenses.txt in Resources */,
+				3D0687F528FC3A6E00EFFFBA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D06880C28FC3EA700EFFFBA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		3DAF24A228FB7268001D5B05 /* Sources */ = {
+		3D0687E928FC3A6D00EFFFBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DAF24AA28FB7268001D5B05 /* SaneSideButtonsApp.swift in Sources */,
-				3DAF24BD28FB72DF001D5B05 /* TouchEvents.c in Sources */,
-				3DAF24B928FB7290001D5B05 /* SwipeSimulator.swift in Sources */,
+				3D06880B28FC3D0900EFFFBA /* main.swift in Sources */,
+				3D0687F128FC3A6D00EFFFBA /* AppDelegate.swift in Sources */,
+				3D06880428FC3B0D00EFFFBA /* TouchEvents.c in Sources */,
+				3D06880728FC3B4C00EFFFBA /* SwipeSimulator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3DAF24B328FB7269001D5B05 /* Debug */ = {
+		3D0687FA28FC3A6E00EFFFBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -232,7 +246,7 @@
 			};
 			name = Debug;
 		};
-		3DAF24B428FB7269001D5B05 /* Release */ = {
+		3D0687FB28FC3A6E00EFFFBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -285,7 +299,7 @@
 			};
 			name = Release;
 		};
-		3DAF24B628FB7269001D5B05 /* Debug */ = {
+		3D0687FD28FC3A6E00EFFFBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -294,19 +308,19 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_ASSET_PATHS = "\"SaneSideButtons/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Jan Hülsmann. All rights reserved.";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.janhuelsmann.SaneSideButtons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -317,7 +331,7 @@
 			};
 			name = Debug;
 		};
-		3DAF24B728FB7269001D5B05 /* Release */ = {
+		3D0687FE28FC3A6E00EFFFBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -326,19 +340,19 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_ASSET_PATHS = "\"SaneSideButtons/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Jan Hülsmann. All rights reserved.";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.janhuelsmann.SaneSideButtons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -351,25 +365,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3DAF24A128FB7268001D5B05 /* Build configuration list for PBXProject "SaneSideButtons" */ = {
+		3D0687E828FC3A6D00EFFFBA /* Build configuration list for PBXProject "SaneSideButtons" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DAF24B328FB7269001D5B05 /* Debug */,
-				3DAF24B428FB7269001D5B05 /* Release */,
+				3D0687FA28FC3A6E00EFFFBA /* Debug */,
+				3D0687FB28FC3A6E00EFFFBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DAF24B528FB7269001D5B05 /* Build configuration list for PBXNativeTarget "SaneSideButtons" */ = {
+		3D0687FC28FC3A6E00EFFFBA /* Build configuration list for PBXNativeTarget "SaneSideButtons" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DAF24B628FB7269001D5B05 /* Debug */,
-				3DAF24B728FB7269001D5B05 /* Release */,
+				3D0687FD28FC3A6E00EFFFBA /* Debug */,
+				3D0687FE28FC3A6E00EFFFBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3DAF249E28FB7268001D5B05 /* Project object */;
+	rootObject = 3D0687E528FC3A6D00EFFFBA /* Project object */;
 }

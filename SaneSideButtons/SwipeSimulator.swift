@@ -5,11 +5,11 @@
 //  Created by Jan Hülsmann on 16.10.22.
 //
 
-import Foundation
+import AppKit
 
 final class SwipeSimulator {
     static let shared = SwipeSimulator()
-    
+
     private let swipeBegin = [
         kTLInfoKeyGestureSubtype: kTLInfoSubtypeSwipe,
         kTLInfoKeyGesturePhase: 1
@@ -27,21 +27,43 @@ final class SwipeSimulator {
         kTLInfoKeyGesturePhase: 4
     ]
 
+    var ignoredApplications: [String] = UserDefaults.standard.stringArray(forKey: "ignoredApplications") ?? []
+
     private init() { }
 
     fileprivate func SBFFakeSwipe(direction: TLInfoSwipeDirection) {
-        let eventBegin: CGEvent = tl_CGEventCreateFromGesture(swipeBegin as CFDictionary, [] as CFArray).takeRetainedValue()
+        let eventBegin: CGEvent = tl_CGEventCreateFromGesture(swipeBegin as CFDictionary,
+                                                              [] as CFArray).takeRetainedValue()
 
-        var eventSwipe: CGEvent? = nil
+        var eventSwipe: CGEvent?
         if direction == TLInfoSwipeDirection(kTLInfoSwipeLeft) {
             eventSwipe = tl_CGEventCreateFromGesture(swipeLeft as CFDictionary, [] as CFArray).takeRetainedValue()
         } else if direction == TLInfoSwipeDirection(kTLInfoSwipeRight) {
             eventSwipe = tl_CGEventCreateFromGesture(swipeRight as CFDictionary, [] as CFArray).takeRetainedValue()
         }
-        
+
         guard let eventSwipe else { return }
         eventBegin.post(tap: .cghidEventTap)
         eventSwipe.post(tap: .cghidEventTap)
+    }
+
+    fileprivate func isValidApplication() -> Bool {
+        let frontAppBundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+        guard let frontAppBundleID else { return true }
+        if self.ignoredApplications.contains(frontAppBundleID) {
+            return false
+        }
+        return true
+    }
+
+    func addIgnoredApplication(bundleID: String) {
+        self.ignoredApplications.append(bundleID)
+        UserDefaults.standard.set(self.ignoredApplications, forKey: "ignoredApplications")
+    }
+
+    func removeIgnoredApplication(bundleID: String) {
+        self.ignoredApplications.removeAll { $0 == bundleID }
+        UserDefaults.standard.set(self.ignoredApplications, forKey: "ignoredApplications")
     }
 
     func isProcessTrusted() -> Bool {
@@ -73,12 +95,24 @@ final class SwipeSimulator {
     }
 }
 
-fileprivate func mouseEventCallBack(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+// swiftlint:disable private_over_fileprivate
+fileprivate func mouseEventCallBack(proxy: CGEventTapProxy,
+                                    type: CGEventType,
+                                    cgEvent: CGEvent,
+                                    userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    let mouseDown = type == .otherMouseDown
+    let validApplication = SwipeSimulator.shared.isValidApplication()
+    guard mouseDown && validApplication else {
+        return Unmanaged.passRetained(cgEvent)
+    }
     let number = CGEvent.getIntegerValueField(cgEvent)(.mouseEventButtonNumber)
     if number == 3 {
         SwipeSimulator.shared.SBFFakeSwipe(direction: TLInfoSwipeDirection(kTLInfoSwipeLeft))
+        return nil
     } else if number == 4 {
         SwipeSimulator.shared.SBFFakeSwipe(direction: TLInfoSwipeDirection(kTLInfoSwipeRight))
+        return nil
     }
     return Unmanaged.passRetained(cgEvent)
 }
+// swiftlint:enable private_over_fileprivate
