@@ -13,6 +13,7 @@
 		3D06880728FC3B4C00EFFFBA /* SwipeSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */; };
 		3D06880928FC3B8200EFFFBA /* Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D06880828FC3B8200EFFFBA /* Licenses.txt */; };
 		3D06880B28FC3D0900EFFFBA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880A28FC3D0800EFFFBA /* main.swift */; };
+		3D25277A28FCA303003BBABD /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25277928FCA303003BBABD /* PermissionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeSimulator.swift; sourceTree = "<group>"; };
 		3D06880828FC3B8200EFFFBA /* Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licenses.txt; sourceTree = "<group>"; };
 		3D06880A28FC3D0800EFFFBA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3D25277928FCA303003BBABD /* PermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			children = (
 				3D06880A28FC3D0800EFFFBA /* main.swift */,
 				3D0687F028FC3A6D00EFFFBA /* AppDelegate.swift */,
+				3D25277928FCA303003BBABD /* PermissionView.swift */,
 				3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */,
 				3D06880828FC3B8200EFFFBA /* Licenses.txt */,
 				3D0687F428FC3A6E00EFFFBA /* Assets.xcassets */,
@@ -176,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D25277A28FCA303003BBABD /* PermissionView.swift in Sources */,
 				3D06880B28FC3D0900EFFFBA /* main.swift in Sources */,
 				3D0687F128FC3A6D00EFFFBA /* AppDelegate.swift in Sources */,
 				3D06880428FC3B0D00EFFFBA /* TouchEvents.c in Sources */,
@@ -308,7 +312,7 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -327,7 +331,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "External/SaneSideButtons-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -341,7 +345,7 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -359,7 +363,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "External/SaneSideButtons-Bridging-Header.h";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

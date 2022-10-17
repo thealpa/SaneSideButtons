@@ -6,10 +6,12 @@
 //
 
 import AppKit
+import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var currentFrontAppBundleID: String?
+    private var window: NSWindow?
 
     private lazy var menuBarExtra: NSStatusItem = {
         return NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -22,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     private let itemHideInfo: NSMenuItem = {
-        let item = NSMenuItem(title: "Relaunch app to show again", action: nil, keyEquivalent: "")
+        let item = NSMenuItem(title: "Relaunch App to Show Again", action: nil, keyEquivalent: "")
         item.isEnabled = false
         return item
     }()
@@ -54,11 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - NSApplicationDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        guard SwipeSimulator.shared.isProcessTrusted() else {
-            print("Process isn't trusted")
-            exit(1)
-        }
-        SwipeSimulator.shared.setupEventTap()
+        self.setupPermissions()
         self.setupMenuBarExtra()
     }
 
@@ -124,13 +122,76 @@ private extension AppDelegate {
         guard let currentFrontAppBundleID else { return }
         SwipeSimulator.shared.removeIgnoredApplication(bundleID: currentFrontAppBundleID)
     }
+
+    // MARK: - Permissions
+
+    private func setupPermissions() {
+        if self.hasPermissions() {
+            SwipeSimulator.shared.setupEventTap()
+        } else {
+            Task {
+                await self.promptPermissions()
+            }
+        }
+    }
+
+    private func hasPermissions() -> Bool {
+        if getEventPermission() && getAccessibilityPermission() {
+            return true
+        }
+        return false
+    }
+
+    private func getEventPermission() -> Bool {
+        if !CGPreflightListenEventAccess() {
+            CGRequestListenEventAccess()
+            return false
+        }
+        return true
+    }
+
+    private func getAccessibilityPermission() -> Bool {
+        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
+        let options = [prompt: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
+    }
+
+    @MainActor @objc private func promptPermissions() {
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        self.window = NSWindow(
+            contentRect: NSRect(),
+            styleMask: [.closable, .titled],
+            backing: .buffered, defer: false)
+        self.window?.isReleasedWhenClosed = false
+        self.window?.titlebarAppearsTransparent = true
+        self.window?.titleVisibility = .hidden
+        self.window?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        self.window?.standardWindowButton(.zoomButton)?.isHidden = true
+        let permissionView = PermissionView(closeWindow: self.closePermissionsPrompt,
+                                            hasPermissions: self.hasPermissions)
+        self.window?.contentView = NSHostingView(rootView: permissionView)
+        self.window?.center()
+        self.window?.makeKeyAndOrderFront(nil)
+        self.window?.delegate = self
+    }
+
+    func closePermissionsPrompt() {
+        self.window?.close()
+        self.window = nil
+        self.setupPermissions()
+    }
 }
 
 // MARK: - NSMenuDelegate
 
 extension AppDelegate: NSMenuDelegate {
-    //  Change item access to array
     func menuWillOpen(_ menu: NSMenu) {
+        // Permission Detection
+        if !self.hasPermissions() {
+            self.promptPermissions()
+        }
+
+        // Front App Detection
         guard let frontApp = NSWorkspace.shared.frontmostApplication,
               let frontAppName = frontApp.localizedName,
               let frontAppBundleID = frontApp.bundleIdentifier else {
@@ -149,5 +210,14 @@ extension AppDelegate: NSMenuDelegate {
         }
         self.menuBarExtra.menu?.item(withTag: 1)?.isHidden = false
         self.menuBarExtra.menu?.item(withTag: 1)?.title = "Ignore " + frontAppName
+    }
+}
+
+// MARK: - NSWindowDelegate
+
+extension AppDelegate: NSWindowDelegate {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        self.window = nil
+        return true
     }
 }

@@ -66,18 +66,6 @@ final class SwipeSimulator {
         UserDefaults.standard.set(self.ignoredApplications, forKey: "ignoredApplications")
     }
 
-    func isProcessTrusted() -> Bool {
-//        let promptKey = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
-//        let opts = [promptKey: true] as CFDictionary
-//        return AXIsProcessTrustedWithOptions(opts)
-        if !CGPreflightListenEventAccess() {
-            CGRequestListenEventAccess()
-            return false
-        } else {
-            return true
-        }
-    }
-
     func setupEventTap() {
         let eventMask = CGEventMask(1 << CGEventType.otherMouseDown.rawValue | 1 << CGEventType.otherMouseUp.rawValue)
         guard let eventTap = CGEvent.tapCreate(tap: .cghidEventTap,
