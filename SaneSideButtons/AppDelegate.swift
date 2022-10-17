@@ -129,6 +129,9 @@ private extension AppDelegate {
         if self.hasPermissions() {
             SwipeSimulator.shared.setupEventTap()
         } else {
+            if self.getEventPermission() {
+                SwipeSimulator.shared.setupEventTap()
+            }
             Task {
                 await self.promptPermissions()
             }
