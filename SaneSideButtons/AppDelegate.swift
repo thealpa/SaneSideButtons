@@ -188,7 +188,10 @@ extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         // Permission Detection
         if !self.hasPermissions() {
-            self.promptPermissions()
+            NSApplication.shared.activate(ignoringOtherApps: true)
+            if self.window == nil {
+                self.promptPermissions()
+            }
         }
 
         // Front App Detection
