@@ -56,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - NSApplicationDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        self.setupPermissions()
+        self.setupTapWithPermissions()
         self.setupMenuBarExtra()
     }
 
@@ -123,29 +123,29 @@ private extension AppDelegate {
         SwipeSimulator.shared.removeIgnoredApplication(bundleID: currentFrontAppBundleID)
     }
 
-    // MARK: - Permissions
+    // MARK: - Setup & Permissions
 
-    private func setupPermissions() {
-        if self.hasPermissions() {
-            SwipeSimulator.shared.setupEventTap()
-        } else {
-            if self.getEventPermission() {
-                SwipeSimulator.shared.setupEventTap()
-            }
-            Task {
-                await self.promptPermissions()
+    private func setupTapWithPermissions() {
+        self.getEventPermission()
+        do {
+            try SwipeSimulator.shared.setupEventTap()
+        } catch {
+            if window == nil {
+                Task {
+                    await self.promptPermissions()
+                }
             }
         }
     }
 
-    private func hasPermissions() -> Bool {
-        if getEventPermission() && getAccessibilityPermission() {
-            return true
-        }
-        return false
-    }
+//    private func hasPermissions() -> Bool {
+//        if getEventPermission() && hasAccessibilityPermission() {
+//            return true
+//        }
+//        return false
+//    }
 
-    private func getEventPermission() -> Bool {
+    @discardableResult private func getEventPermission() -> Bool {
         if !CGPreflightListenEventAccess() {
             CGRequestListenEventAccess()
             return false
@@ -153,26 +153,28 @@ private extension AppDelegate {
         return true
     }
 
-    private func getAccessibilityPermission() -> Bool {
-        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
-        let options = [prompt: true] as CFDictionary
-        return AXIsProcessTrustedWithOptions(options)
-    }
+//    private func hasAccessibilityPermission() -> Bool {
+//        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
+//        let options = [prompt: true] as CFDictionary
+//        return AXIsProcessTrustedWithOptions(options)
+//    }
 
     @MainActor @objc private func promptPermissions() {
         NSApplication.shared.activate(ignoringOtherApps: true)
         self.window = NSWindow(
             contentRect: NSRect(),
-            styleMask: [.closable, .titled],
+            styleMask: [.closable, .titled, .fullSizeContentView],
             backing: .buffered, defer: false)
         self.window?.isReleasedWhenClosed = false
         self.window?.titlebarAppearsTransparent = true
         self.window?.titleVisibility = .hidden
+        self.window?.toolbar = NSToolbar()
         self.window?.standardWindowButton(.miniaturizeButton)?.isHidden = true
         self.window?.standardWindowButton(.zoomButton)?.isHidden = true
-        let permissionView = PermissionView(closeWindow: self.closePermissionsPrompt,
-                                            hasPermissions: self.hasPermissions)
+        let permissionView = PermissionView(closeWindow: self.closePermissionsPrompt)
         self.window?.contentView = NSHostingView(rootView: permissionView)
+        self.window?.isOpaque = false
+        self.window?.backgroundColor = NSColor(white: 1, alpha: 0)
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         self.window?.delegate = self
@@ -181,7 +183,6 @@ private extension AppDelegate {
     func closePermissionsPrompt() {
         self.window?.close()
         self.window = nil
-        self.setupPermissions()
     }
 }
 
@@ -190,7 +191,7 @@ private extension AppDelegate {
 extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         // Permission Detection
-        if !self.hasPermissions() {
+        if !SwipeSimulator.shared.eventTapIsRunning {
             NSApplication.shared.activate(ignoringOtherApps: true)
             if self.window == nil {
                 self.promptPermissions()

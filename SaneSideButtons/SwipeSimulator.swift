@@ -9,6 +9,7 @@ import AppKit
 
 final class SwipeSimulator {
     static let shared = SwipeSimulator()
+    private(set) var eventTapIsRunning: Bool = false
 
     private let swipeBegin = [
         kTLInfoKeyGestureSubtype: kTLInfoSubtypeSwipe,
@@ -28,6 +29,10 @@ final class SwipeSimulator {
     ]
 
     var ignoredApplications: [String] = UserDefaults.standard.stringArray(forKey: "ignoredApplications") ?? []
+
+    enum EventTap: Error {
+      case failedSetup
+    }
 
     private init() { }
 
@@ -66,7 +71,8 @@ final class SwipeSimulator {
         UserDefaults.standard.set(self.ignoredApplications, forKey: "ignoredApplications")
     }
 
-    func setupEventTap() {
+    func setupEventTap() throws {
+        guard !eventTapIsRunning else { return }
         let eventMask = CGEventMask(1 << CGEventType.otherMouseDown.rawValue | 1 << CGEventType.otherMouseUp.rawValue)
         guard let eventTap = CGEvent.tapCreate(tap: .cghidEventTap,
                                                place: .headInsertEventTap,
@@ -74,12 +80,13 @@ final class SwipeSimulator {
                                                eventsOfInterest: eventMask,
                                                callback: mouseEventCallBack,
                                                userInfo: nil) else {
-            print("Failed to create eventTap")
-            return
+            self.eventTapIsRunning = false
+            throw EventTap.failedSetup
         }
         let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap, enable: true)
+        self.eventTapIsRunning = true
     }
 }
 
