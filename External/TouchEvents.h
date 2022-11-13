@@ -67,5 +67,4 @@ extern const CFStringRef kTLEventKeyIrregularity;
 extern const CFStringRef kTLEventKeyMajorRadius;
 extern const CFStringRef kTLEventKeyMinorRadius;
 
-
 CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches);

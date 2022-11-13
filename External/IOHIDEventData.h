@@ -22,7 +22,6 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
-
 #include "IOHIDEventTypes.h"
 
 #define IOHIDEVENT_BASE         \
@@ -37,7 +36,6 @@
         IOFixed y;              \
         IOFixed z;              \
     } position;
-
 
 // NOTE: original Apple source had "struct IOHIDEventData" instead of typedef
 typedef struct _IOHIDEventData {
@@ -66,7 +64,6 @@ enum {
     kIOHIDDigitizerOrientationTypeQuality
 };
 typedef uint8_t IOHIDDigitizerOrientationType;
-
 
 #define IOHIDBUTTONEVENT_BASE           \
     struct {                            \

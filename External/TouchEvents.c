@@ -7,8 +7,8 @@
  *
  */
 
-#include "TouchEvents.h"
 #include <mach/mach_time.h>
+#include "TouchEvents.h"
 #include "IOHIDEventData.h"
 
 const CFStringRef kTLInfoKeyDeviceID = CFSTR("deviceID");
@@ -19,7 +19,6 @@ const CFStringRef kTLInfoKeyMagnification = CFSTR("magnification");
 const CFStringRef kTLInfoKeyRotation = CFSTR("rotation");
 const CFStringRef kTLInfoKeySwipeDirection = CFSTR("swipeDirection");
 const CFStringRef kTLInfoKeyNextSubtype = CFSTR("nextSubtype");
-
 
 const CFStringRef kTLEventKeyType = CFSTR("type");
 const CFStringRef kTLEventKeyTimestamp = CFSTR("timestamp");
@@ -45,13 +44,11 @@ const CFStringRef kTLEventKeyIrregularity = CFSTR("irregularity");
 const CFStringRef kTLEventKeyMajorRadius = CFSTR("majorRadius");
 const CFStringRef kTLEventKeyMinorRadius = CFSTR("minorRadius");
 
-
 static inline IOFixed tl_float2fixed(double f) { return (IOFixed)(f * 65536.0); }
 
 static inline void setVendorData(IOHIDVendorDefinedEventData* vd, const void* data) {
 	memmove(vd->data, data, vd->length);
 }
-
 
 static void appendHeader(CFMutableDataRef data, uint8_t field, uint8_t type, uint16_t count) {
 	// serialize header
@@ -138,7 +135,7 @@ static void fillOutDigitizer(CFDictionaryRef info, IOHIDDigitizerEventData* even
 		CFNumberGetValue(val, kCFNumberDoubleType, &d);
 		event->position.z = tl_float2fixed(d);
 	}
-	
+
 	if ((val = CFDictionaryGetValue(info, kTLEventKeyTransducerIndex))) {
 		CFNumberGetValue(val, kCFNumberSInt32Type, &event->transducerIndex);
 	}
@@ -151,7 +148,7 @@ static void fillOutDigitizer(CFDictionaryRef info, IOHIDDigitizerEventData* even
 	if ((val = CFDictionaryGetValue(info, kTLEventKeyEventMask))) {
 		CFNumberGetValue(val, kCFNumberSInt32Type, &event->eventMask);
 	}
-	
+
 	if ((val = CFDictionaryGetValue(info, kTLEventKeyButtonMask))) {
 		CFNumberGetValue(val, kCFNumberSInt32Type, &event->buttonMask);
 	}
@@ -167,7 +164,7 @@ static void fillOutDigitizer(CFDictionaryRef info, IOHIDDigitizerEventData* even
 		CFNumberGetValue(val, kCFNumberDoubleType, &d);
 		event->twist = tl_float2fixed(d);
 	}
-	
+
 	event->orientationType = kIOHIDDigitizerOrientationTypeQuality;
 	if ((val = CFDictionaryGetValue(info, kTLEventKeyQuality))) {
 		CFNumberGetValue(val, kCFNumberDoubleType, &d);
@@ -204,7 +201,7 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 	AvgPosition avgRange = {};
 	AvgPosition avgOther = {};
 	CFNumberRef val;
-	
+
 	uint64_t timestamp;
 	val = CFDictionaryGetValue(info, kTLInfoKeyTimestamp);
 	if (val) {
@@ -213,25 +210,25 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 	else {
         timestamp = mach_absolute_time();
 	}
-	
+
 	IOHIDDigitizerEventData parent = {};
 	parent.size = (uint32_t)sizeof(IOHIDDigitizerEventData);
 	parent.type = kIOHIDEventTypeDigitizer;
 	parent.timestamp = timestamp;
 	parent.options = kIOHIDEventOptionIsCollection;
 	parent.transducerType = kIOHIDDigitizerTransducerTypeHand;
-	
+
 	CFMutableDataRef serializedTouches = CFDataCreateMutable(kCFAllocatorDefault, 0);
 	CFIndex numTouches = CFArrayGetCount(touches);
 	for (CFIndex touchIdx = 0; touchIdx < numTouches; ++touchIdx) {
 		CFDictionaryRef touchInfo = CFArrayGetValueAtIndex(touches, touchIdx);
 		CFNumberRef typeVal = CFDictionaryGetValue(touchInfo, kTLEventKeyType);
 		if (!typeVal) continue;
-		
+
 		int32_t type;
 		CFNumberGetValue(typeVal, kCFNumberSInt32Type, &type);
 		assert(type == kIOHIDEventTypeDigitizer);	// only digitizer events currently supported
-		
+
 		IOHIDDigitizerEventData touch = {};
 		fillOutBase(touchInfo, (IOHIDEventData*)&touch);
 		fillOutDigitizer(touchInfo, &touch);
@@ -258,7 +255,7 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 			avgOther.sumZ += touch.position.z;
 		}
 	}
-	
+
 	// calculate parent position
 	if (avgTouch.count) {
 		parent.position.x = (IOFixed)(avgTouch.sumX / avgTouch.count);
@@ -275,7 +272,7 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 		parent.position.y = (IOFixed)(avgOther.sumY / avgOther.count);
 		parent.position.z = (IOFixed)(avgOther.sumZ / avgOther.count);
 	}
-	
+
 	// create vendor token
 	uint64_t deviceID = 0;
 	val = CFDictionaryGetValue(info, kTLInfoKeyDeviceID);
@@ -294,47 +291,47 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 	vendorData->version = 1;
 	vendorData->length = (uint32_t)vendorPayloadLen;
 	setVendorData(vendorData, vendorPayload);
-	
+
 	// create base event
 	CGEventRef protoEvent = CGEventCreate(NULL);
 	CGEventSetType(protoEvent, 29);		// NSEventTypeGesture
 	CGEventSetFlags(protoEvent, 256);	// magic
 	CGEventSetTimestamp(protoEvent, timestamp);
-	
+
 	// serialize base event
 	CFDataRef baseData = CGEventCreateData(kCFAllocatorDefault, protoEvent);
 	CFRelease(protoEvent);
 	CFMutableDataRef gestureData = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, baseData);
 	CFRelease(baseData);
-	
+
 	// remove gesture fields CGEvent has added before the missing event data (it expects to find them after)
 	if (CFDataGetLength(gestureData) >= 24) {
 		CFDataDeleteBytes(gestureData, CFRangeMake(CFDataGetLength(gestureData) - 24, 24));
 	}
-	
+
 	// serialize CGEvent field header for IOHID event queue
 	uint16_t totalSize = (sizeof(IOHIDSystemQueueElement) + vendorDataSize +
 						  (numTouches + 1) * sizeof(IOHIDDigitizerEventData));
 	uint16_t swappedTotalSize = CFSwapInt16HostToBig((uint16_t)totalSize);
 	CFDataAppendBytes(gestureData, (UInt8*)&swappedTotalSize, 2);
 	CFDataAppendBytes(gestureData, (UInt8[]){0x10, 0x6D}, 2);
-	
+
 	// serialize event queue collection header
 	IOHIDSystemQueueElement queueElement = {};
 	queueElement.timeStamp = timestamp;
 	queueElement.options = parent.options;
 	queueElement.eventCount = (uint32_t)numTouches + 2;
 	CFDataAppendBytes(gestureData, (UInt8*)&queueElement, sizeof(queueElement));
-	
+
 	// serialize touch event data
 	CFDataAppendBytes(gestureData, (UInt8*)&parent, parent.size);
 	CFDataAppendBytes(gestureData, CFDataGetBytePtr(serializedTouches), CFDataGetLength(serializedTouches));
 	CFRelease(serializedTouches);
-	
+
 	// serialize vendor data
 	CFDataAppendBytes(gestureData, (UInt8*)vendorData, vendorDataSize);
 	free(vendorData);
-	
+
 	// serialize gesture event fields
 	int32_t gestureSubtype = kTLInfoSubtypeGesture;
 	val = CFDictionaryGetValue(info, kTLInfoKeyGestureSubtype);
@@ -344,7 +341,7 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 	appendIntegerField(gestureData, 0x6E, gestureSubtype);
 	appendIntegerField(gestureData, 0x6F, 0);	// magic
 	appendIntegerField(gestureData, 0x70, 0);	// magic
-	
+
 	int32_t gesturePhase = 0;      // c.f. IOHIDEventPhaseBits
 	val = CFDictionaryGetValue(info, kTLInfoKeyGesturePhase);
 	if (val) {
@@ -352,8 +349,7 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 	}
 	appendIntegerField(gestureData, 0x84, gesturePhase);
 	appendIntegerField(gestureData, 0x85, 0);	// magic?
-   
-   
+
 	if (gestureSubtype == kTLInfoSubtypeMagnify) {
 		Float32 magnification = 0.0f;
 		val = CFDictionaryGetValue(info, kTLInfoKeyMagnification);
@@ -388,10 +384,10 @@ CGEventRef tl_CGEventCreateFromGesture(CFDictionaryRef info, CFArrayRef touches)
 		}
 		appendIntegerField(gestureData, 0x75, nextSubtype);
 	}
-	
+
 	appendFloatField(gestureData, 0x8B, 0.0f);		// magic?
 	appendFloatField(gestureData, 0x8C, 0.0f);		// magic?
-	
+
 	CGEventRef synthEvent = CGEventCreateFromData(kCFAllocatorDefault, gestureData);
 	CFRelease(gestureData);
 	return synthEvent;
