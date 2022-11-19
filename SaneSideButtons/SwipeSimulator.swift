@@ -31,7 +31,7 @@ final class SwipeSimulator {
     var ignoredApplications: [String] = UserDefaults.standard.stringArray(forKey: "ignoredApplications") ?? []
 
     enum EventTap: Error {
-      case failedSetup
+        case failedSetup
     }
 
     private init() { }

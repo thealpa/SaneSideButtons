@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var currentFrontAppBundleID: String?
     private var window: NSWindow?
@@ -138,13 +138,6 @@ private extension AppDelegate {
         }
     }
 
-//    private func hasPermissions() -> Bool {
-//        if getEventPermission() && hasAccessibilityPermission() {
-//            return true
-//        }
-//        return false
-//    }
-
     @discardableResult private func getEventPermission() -> Bool {
         if !CGPreflightListenEventAccess() {
             CGRequestListenEventAccess()
@@ -153,18 +146,14 @@ private extension AppDelegate {
         return true
     }
 
-//    private func hasAccessibilityPermission() -> Bool {
-//        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
-//        let options = [prompt: true] as CFDictionary
-//        return AXIsProcessTrustedWithOptions(options)
-//    }
-
     @MainActor @objc private func promptPermissions() {
         NSApplication.shared.activate(ignoringOtherApps: true)
         self.window = NSWindow(
             contentRect: NSRect(),
             styleMask: [.closable, .titled, .fullSizeContentView],
-            backing: .buffered, defer: false)
+            backing: .buffered,
+            defer: false
+        )
         self.window?.isReleasedWhenClosed = false
         self.window?.titlebarAppearsTransparent = true
         self.window?.titleVisibility = .hidden

@@ -9,7 +9,6 @@
 
 #include <ApplicationServices/ApplicationServices.h>
 
-
 /* these for info */
 
 extern const CFStringRef kTLInfoKeyDeviceID;	// required for touches
@@ -39,7 +38,6 @@ enum {
     kTLInfoSwipeRight = 8
 };
 typedef uint32_t TLInfoSwipeDirection;
-
 
 /* these for touches */
 
