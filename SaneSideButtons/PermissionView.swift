@@ -118,7 +118,7 @@ struct PermissionContentView: View {
                     } label: {
                         HStack {
                             Image(systemName: "keyboard.badge.eye.fill")
-                            Text("Add SaneSideButtons to Accessibility & Input Monitoring")
+                            Text("Add SaneSideButtons to \(Text("Accessibility").underline()) & \(Text("Input Monitoring").underline())")
                                 .font(.body)
                                 .multilineTextAlignment(.center)
                         }
