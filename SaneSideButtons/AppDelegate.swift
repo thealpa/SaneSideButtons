@@ -20,11 +20,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Menu Bar Items
 
     private let itemHide: NSMenuItem = {
-        return NSMenuItem(title: "Hide Menu Bar Icon", action: #selector(hideMenuBarExtra), keyEquivalent: "h")
+        let hideString = NSLocalizedString("hide", comment: "Hide menu item")
+        return NSMenuItem(title: hideString, action: #selector(hideMenuBarExtra), keyEquivalent: "h")
     }()
 
     private let itemHideInfo: NSMenuItem = {
-        let item = NSMenuItem(title: "Relaunch App to Show Again", action: nil, keyEquivalent: "")
+        let hideInfoString = NSLocalizedString("hideInfo", comment: "Show again info in menu")
+        let item = NSMenuItem(title: hideInfoString, action: nil, keyEquivalent: "")
         item.isEnabled = false
         return item
     }()
@@ -37,20 +39,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let itemVersion: NSMenuItem? = {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        if let version {
-            let item = NSMenuItem(title: "Version \(version)", action: nil, keyEquivalent: "")
-            item.isEnabled = false
-            return item
-        }
-        return nil
+        guard let version else { return nil }
+        let localizedString = NSLocalizedString("version", comment: "Version menu item")
+        let versionString = String.localizedStringWithFormat(localizedString, version)
+        let item = NSMenuItem(title: versionString, action: nil, keyEquivalent: "")
+        item.isEnabled = false
+        return item
     }()
 
     private let itemAbout: NSMenuItem = {
-        return NSMenuItem(title: "About", action: #selector(about), keyEquivalent: "")
+        let aboutString = NSLocalizedString("about", comment: "About menu item")
+        return NSMenuItem(title: aboutString, action: #selector(about), keyEquivalent: "")
     }()
 
     private let itemQuit: NSMenuItem = {
-        return NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q")
+        let quitString = NSLocalizedString("quit", comment: "Quit menu item")
+        return NSMenuItem(title: quitString, action: #selector(quit), keyEquivalent: "q")
     }()
 
     // MARK: - NSApplicationDelegate
@@ -65,9 +69,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+    func applicationWillTerminate(_ aNotification: Notification) { }
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
@@ -130,7 +132,7 @@ private extension AppDelegate {
         do {
             try SwipeSimulator.shared.setupEventTap()
         } catch {
-            if window == nil {
+            if self.window == nil {
                 Task {
                     await self.promptPermissions()
                 }
@@ -197,6 +199,8 @@ extension AppDelegate: NSMenuDelegate {
         }
 
         self.currentFrontAppBundleID = frontAppBundleID
+        let localizedString = NSLocalizedString("ignore", comment: "Ignore app menu item")
+        let ignoreString = String.localizedStringWithFormat(localizedString, frontAppName)
         if !SwipeSimulator.shared.ignoredApplications.contains(frontAppBundleID) {
             self.menuBarExtra.menu?.item(withTag: 1)?.state = .off
             self.menuBarExtra.menu?.item(withTag: 1)?.action = #selector(self.ignore)
@@ -205,7 +209,7 @@ extension AppDelegate: NSMenuDelegate {
             self.menuBarExtra.menu?.item(withTag: 1)?.action = #selector(self.unignore)
         }
         self.menuBarExtra.menu?.item(withTag: 1)?.isHidden = false
-        self.menuBarExtra.menu?.item(withTag: 1)?.title = "Ignore " + frontAppName
+        self.menuBarExtra.menu?.item(withTag: 1)?.title = ignoreString
     }
 }
 

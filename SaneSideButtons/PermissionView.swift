@@ -14,10 +14,10 @@ struct PermissionView: View {
     var body: some View {
         VStack {
             VStack {
-                Text("Authorize SaneSideButtons")
+                Text("authorize_title")
                     .font(.title)
                     .fontWeight(.medium)
-                Text("We'll have you up and running in just a minute!")
+                Text("authorize_subtitle")
                     .font(.body)
                     .fontWeight(.medium)
             }
@@ -55,9 +55,7 @@ struct PermissionContentView: View {
 
     var body: some View {
         VStack {
-            // swiftlint:disable line_length
-            Text("SaneSideButtons needs your permission to detect mouse events and trigger actions in applications. Follow these steps to authorize it:")
-            // swiftlint:enable line_length
+            Text("authorize_description")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
@@ -82,7 +80,7 @@ struct PermissionContentView: View {
                     } label: {
                         HStack {
                             Image(systemName: "gear")
-                            Text("Go to System Settings")
+                            Text("settings")
                                 .font(.body)
                         }
                         .padding(10)
@@ -100,7 +98,7 @@ struct PermissionContentView: View {
                     } label: {
                         HStack {
                             Image(systemName: "hand.raised.fill")
-                            Text("Privacy & Security")
+                            Text("privacy")
                                 .font(.body)
                         }
                         .padding(10)
@@ -118,7 +116,7 @@ struct PermissionContentView: View {
                     } label: {
                         HStack {
                             Image(systemName: "keyboard.badge.eye.fill")
-                            Text("Add SaneSideButtons to \(Text("Accessibility").underline()) & \(Text("Input Monitoring").underline())")
+                            Text("add_to \(Text("a11y").underline()) \(Text("input_monitoring").underline())")
                                 .font(.body)
                                 .multilineTextAlignment(.center)
                         }

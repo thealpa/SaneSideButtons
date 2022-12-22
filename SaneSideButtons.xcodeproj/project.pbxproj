@@ -13,6 +13,7 @@
 		3D06880728FC3B4C00EFFFBA /* SwipeSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */; };
 		3D06880928FC3B8200EFFFBA /* Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D06880828FC3B8200EFFFBA /* Licenses.txt */; };
 		3D06880B28FC3D0900EFFFBA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06880A28FC3D0800EFFFBA /* main.swift */; };
+		3D20D345298EB4AE00D74D28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D20D347298EB4AE00D74D28 /* Localizable.strings */; };
 		3D25277A28FCA303003BBABD /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25277928FCA303003BBABD /* PermissionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		3D06880628FC3B4C00EFFFBA /* SwipeSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeSimulator.swift; sourceTree = "<group>"; };
 		3D06880828FC3B8200EFFFBA /* Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Licenses.txt; sourceTree = "<group>"; };
 		3D06880A28FC3D0800EFFFBA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3D20D346298EB4AE00D74D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D25277928FCA303003BBABD /* PermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +72,7 @@
 				3D06880828FC3B8200EFFFBA /* Licenses.txt */,
 				3D0687F428FC3A6E00EFFFBA /* Assets.xcassets */,
 				3D0687F928FC3A6E00EFFFBA /* SaneSideButtons.entitlements */,
+				3D20D347298EB4AE00D74D28 /* Localizable.strings */,
 			);
 			path = SaneSideButtons;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D06880928FC3B8200EFFFBA /* Licenses.txt in Resources */,
+				3D20D345298EB4AE00D74D28 /* Localizable.strings in Resources */,
 				3D0687F528FC3A6E00EFFFBA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,6 +192,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3D20D347298EB4AE00D74D28 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D20D346298EB4AE00D74D28 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3D0687FA28FC3A6E00EFFFBA /* Debug */ = {
@@ -312,7 +327,7 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -324,7 +339,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.janhuelsmann.SaneSideButtons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -345,7 +360,7 @@
 				CODE_SIGN_ENTITLEMENTS = SaneSideButtons/SaneSideButtons.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = B7HSFEB698;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -357,7 +372,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.janhuelsmann.SaneSideButtons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
