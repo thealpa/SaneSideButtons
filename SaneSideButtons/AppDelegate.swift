@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
 
     private var currentFrontAppBundleID: String?
     private var window: NSWindow?
@@ -171,7 +171,7 @@ private extension AppDelegate {
         self.window?.delegate = self
     }
 
-    func closePermissionsPrompt() {
+    @MainActor func closePermissionsPrompt() {
         self.window?.close()
         self.window = nil
     }
