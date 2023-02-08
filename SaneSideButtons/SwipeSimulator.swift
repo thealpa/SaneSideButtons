@@ -37,14 +37,16 @@ final class SwipeSimulator {
     private init() { }
 
     fileprivate func SBFFakeSwipe(direction: TLInfoSwipeDirection) {
-        let eventBegin: CGEvent = tl_CGEventCreateFromGesture(swipeBegin as CFDictionary,
+        let eventBegin: CGEvent = tl_CGEventCreateFromGesture(self.swipeBegin as CFDictionary,
                                                               [] as CFArray).takeRetainedValue()
 
         var eventSwipe: CGEvent?
         if direction == TLInfoSwipeDirection(kTLInfoSwipeLeft) {
-            eventSwipe = tl_CGEventCreateFromGesture(swipeLeft as CFDictionary, [] as CFArray).takeRetainedValue()
+            eventSwipe = tl_CGEventCreateFromGesture(self.swipeLeft as CFDictionary,
+                                                     [] as CFArray).takeRetainedValue()
         } else if direction == TLInfoSwipeDirection(kTLInfoSwipeRight) {
-            eventSwipe = tl_CGEventCreateFromGesture(swipeRight as CFDictionary, [] as CFArray).takeRetainedValue()
+            eventSwipe = tl_CGEventCreateFromGesture(self.swipeRight as CFDictionary,
+                                                     [] as CFArray).takeRetainedValue()
         }
 
         guard let eventSwipe else { return }
@@ -72,7 +74,7 @@ final class SwipeSimulator {
     }
 
     func setupEventTap() throws {
-        guard !eventTapIsRunning else { return }
+        guard !self.eventTapIsRunning else { return }
         let eventMask = CGEventMask(1 << CGEventType.otherMouseDown.rawValue | 1 << CGEventType.otherMouseUp.rawValue)
         guard let eventTap = CGEvent.tapCreate(tap: .cghidEventTap,
                                                place: .headInsertEventTap,

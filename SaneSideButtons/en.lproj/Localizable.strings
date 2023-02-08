@@ -6,7 +6,8 @@
   
 */
 
-// Menu Bar
+// MARK: - Menu Bar
+
 "hide" = "Hide Menu Bar Icon";
 "hideInfo" = "Relaunch App to Show Again";
 "ignore" = "Ignore %@";
@@ -14,7 +15,8 @@
 "about" = "About";
 "quit" = "Quit";
 
-// Permission Window
+// MARK: - Permissions Window
+
 "authorize_title" = "Authorize SaneSideButtons";
 "authorize_subtitle" = "We'll have you up and running in just a minute!";
 "authorize_description" = "SaneSideButtons needs your permission to detect mouse events and trigger actions in applications. Follow these steps to authorize it:";
