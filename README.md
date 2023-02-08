@@ -21,7 +21,7 @@ brew install --cask sanesidebuttons
 
 ## Compatibility
 
-- macOS Big Sur (11.0) and above
+- macOS Ventura (13.0) and above
 - Intel and Apple Silicon
 
 ## Automatic launch
