@@ -24,7 +24,7 @@ struct PermissionView: View {
             .padding(.vertical, 10)
             ZStack(alignment: .top) {
                 Rectangle()
-                    .fill(Color("BackgroundColor"))
+                    .fill(Color.background)
                     .frame(width: 600, height: 240)
                 PermissionContentView()
                     .padding(.vertical, 20)

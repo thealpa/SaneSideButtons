@@ -81,7 +81,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
 private extension AppDelegate {
     @MainActor private func setupMenuBarExtra() {
         if let button = self.menuBarExtra.button {
-            button.image = NSImage(named: "MenuIcon")
+            button.image = NSImage(resource: .menuIcon)
         }
 
         let menu = NSMenu()
