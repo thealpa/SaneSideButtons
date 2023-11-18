@@ -11,6 +11,7 @@
 "hide" = "Hide Menu Bar Icon";
 "hideInfo" = "Relaunch App to Show Again";
 "ignore" = "Ignore %@";
+"reverse" = "Reverse Buttons";
 "version" = "Version %@";
 "about" = "About";
 "quit" = "Quit";

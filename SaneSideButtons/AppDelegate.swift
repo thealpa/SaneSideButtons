@@ -31,9 +31,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
         return item
     }()
 
-    private let itemIgnore: NSMenuItem? = {
+    private let itemIgnore: NSMenuItem = {
         let item = NSMenuItem()
         item.tag = 1
+        return item
+    }()
+
+    private let itemReverse: NSMenuItem = {
+        let reverseString = NSLocalizedString("reverse", comment: "Reverse buttons")
+        let item = NSMenuItem(title: reverseString, action: #selector(toggleReverse), keyEquivalent: "")
+        item.tag = 2
         return item
     }()
 
@@ -91,6 +98,7 @@ private extension AppDelegate {
          self.itemHideInfo,
          NSMenuItem.separator(),
          self.itemIgnore,
+         self.itemReverse,
          NSMenuItem.separator(),
          self.itemVersion,
          self.itemAbout,
@@ -123,6 +131,10 @@ private extension AppDelegate {
     @objc private func unignore() {
         guard let currentFrontAppBundleID else { return }
         SwipeSimulator.shared.removeIgnoredApplication(bundleID: currentFrontAppBundleID)
+    }
+
+    @objc private func toggleReverse() {
+        SwipeSimulator.shared.reverseButtons.toggle()
     }
 
     // MARK: - Setup & Permissions
@@ -210,6 +222,9 @@ extension AppDelegate: NSMenuDelegate {
         }
         self.menuBarExtra.menu?.item(withTag: 1)?.isHidden = false
         self.menuBarExtra.menu?.item(withTag: 1)?.title = ignoreString
+
+        // Reverse Buttons State
+        self.menuBarExtra.menu?.item(withTag: 2)?.state = SwipeSimulator.shared.reverseButtons ? .on : .off
     }
 }
 

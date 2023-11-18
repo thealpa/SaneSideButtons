@@ -11,6 +11,7 @@ final class SwipeSimulator {
 
     private enum Keys {
         static let ignored: String = "ignoredApplications"
+        static let reverse: String = "reverseButtons"
     }
 
     static let shared = SwipeSimulator()
@@ -18,6 +19,11 @@ final class SwipeSimulator {
     private(set) var ignoredApplications: [String] = UserDefaults.standard.stringArray(forKey: Keys.ignored) ?? [] {
         didSet {
             UserDefaults.standard.set(self.ignoredApplications, forKey: Keys.ignored)
+        }
+    }
+    var reverseButtons: Bool = UserDefaults.standard.bool(forKey: Keys.reverse) {
+        didSet {
+            UserDefaults.standard.set(self.reverseButtons, forKey: Keys.ignored)
         }
     }
 
@@ -79,13 +85,14 @@ final class SwipeSimulator {
         let eventBegin: CGEvent = tl_CGEventCreateFromGesture(self.swipeBegin as CFDictionary,
                                                               [] as CFArray).takeRetainedValue()
 
-        var eventSwipe: CGEvent?
-        if direction == TLInfoSwipeDirection(kTLInfoSwipeLeft) {
-            eventSwipe = tl_CGEventCreateFromGesture(self.swipeLeft as CFDictionary,
-                                                     [] as CFArray).takeRetainedValue()
-        } else if direction == TLInfoSwipeDirection(kTLInfoSwipeRight) {
-            eventSwipe = tl_CGEventCreateFromGesture(self.swipeRight as CFDictionary,
-                                                     [] as CFArray).takeRetainedValue()
+        let swipeDirection = self.reverseButtons ? direction.reversed : direction
+        let eventSwipe: CGEvent? = switch swipeDirection {
+        case TLInfoSwipeDirection(kTLInfoSwipeLeft):
+            tl_CGEventCreateFromGesture(self.swipeLeft as CFDictionary, [] as CFArray).takeRetainedValue()
+        case TLInfoSwipeDirection(kTLInfoSwipeRight):
+            tl_CGEventCreateFromGesture(self.swipeRight as CFDictionary, [] as CFArray).takeRetainedValue()
+        default:
+            nil
         }
 
         guard let eventSwipe else { return }
@@ -119,5 +126,18 @@ fileprivate func mouseEventCallBack(proxy: CGEventTapProxy,
                                     userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     guard let cgEvent = SwipeSimulator.shared.handleMouseEvent(type: type, cgEvent: cgEvent) else { return nil }
     return Unmanaged.passRetained(cgEvent)
+}
+
+fileprivate extension TLInfoSwipeDirection {
+    var reversed: TLInfoSwipeDirection {
+        switch self {
+        case TLInfoSwipeDirection(kTLInfoSwipeLeft):
+            return TLInfoSwipeDirection(kTLInfoSwipeRight)
+        case TLInfoSwipeDirection(kTLInfoSwipeRight):
+            return TLInfoSwipeDirection(kTLInfoSwipeLeft)
+        default:
+            return self
+        }
+    }
 }
 // swiftlint:enable private_over_fileprivate
