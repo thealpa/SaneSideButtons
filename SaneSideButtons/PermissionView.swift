@@ -9,7 +9,11 @@ import SwiftUI
 
 struct PermissionView: View {
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let closeWindow: @MainActor () -> Void
+    private let closeWindow: @MainActor () -> Void
+
+    init(closeWindow: @escaping () -> Void) {
+        self.closeWindow = closeWindow
+    }
 
     var body: some View {
         VStack {
@@ -133,10 +137,6 @@ struct PermissionContentView: View {
     }
 }
 
-struct PermissionView_Previews: PreviewProvider {
-    static var previews: some View {
-        PermissionView(closeWindow: self.closeWindow)
-    }
-
-    static func closeWindow() { }
+#Preview {
+    PermissionView(closeWindow: { })
 }
