@@ -27,9 +27,8 @@ brew install --cask sanesidebuttons
 ## Automatic launch
 To launch SaneSideButtons automatically when you log in on your Mac:
 
-1. Click the System Preferences icon in the Dock or choose Apple menu  > System Preferences.
-2. Open the Users & Groups preference pane.
-3. Select your username in the left panel.
-4. Click on Login Items at the top.
-5. Click on the plus button at the bottom of the right pane.
-6. Navigate to your Applications folder (or wherever you put the app) and double-click SaneSideButtons.
+1. Click the `System Preferences`` icon in the Dock or choose Apple menu  > System Preferences.
+1. Open the `General` preference pane.
+1. Click on `Login Items` in the right preference pane.
+1. Click on the plus button at the bottom of the `Open at Login` pane.
+1. Navigate to your Applications folder (or wherever you put the app) and double-click SaneSideButtons.
