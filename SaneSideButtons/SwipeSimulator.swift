@@ -101,9 +101,7 @@ final class SwipeSimulator {
     }
 
     fileprivate func handleMouseEvent(type: CGEventType, cgEvent: CGEvent) -> CGEvent? {
-        let mouseDown = type == .otherMouseDown
-        let validApplication = self.isValidApplication()
-        guard mouseDown && validApplication else {
+        guard type == .otherMouseDown && self.isValidApplication() else {
             return cgEvent
         }
 
