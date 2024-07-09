@@ -12,6 +12,7 @@
 "hideInfo" = "Relaunch App to Show Again";
 "ignore" = "Ignore %@";
 "reverse" = "Reverse Buttons";
+"launchAtLogin" = "Launch at Login";
 "version" = "Version %@";
 "about" = "About";
 "quit" = "Quit";

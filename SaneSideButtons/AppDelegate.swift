@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftUI
+import LaunchAtLogin
 
 final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
 
@@ -41,6 +42,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
         let reverseString = NSLocalizedString("reverse", comment: "Reverse buttons")
         let item = NSMenuItem(title: reverseString, action: #selector(toggleReverse), keyEquivalent: "")
         item.tag = 2
+        return item
+    }()
+    
+    private let itemLaunchAtLogin: NSMenuItem = {
+        let launchAtLoginString = NSLocalizedString("launchAtLogin", comment: "Launch at Login")
+        let item = NSMenuItem(title: launchAtLoginString, action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
+        item.tag = 3
         return item
     }()
 
@@ -100,6 +108,8 @@ private extension AppDelegate {
          self.itemIgnore,
          self.itemReverse,
          NSMenuItem.separator(),
+         self.itemLaunchAtLogin,
+         NSMenuItem.separator(),
          self.itemVersion,
          self.itemAbout,
          NSMenuItem.separator(),
@@ -135,6 +145,10 @@ private extension AppDelegate {
 
     @objc private func toggleReverse() {
         SwipeSimulator.shared.reverseButtons.toggle()
+    }
+    
+    @objc private func toggleLaunchAtLogin() {
+        LaunchAtLogin.isEnabled.toggle()
     }
 
     // MARK: - Setup & Permissions
@@ -225,6 +239,9 @@ extension AppDelegate: NSMenuDelegate {
 
         // Reverse Buttons State
         self.menuBarExtra.menu?.item(withTag: 2)?.state = SwipeSimulator.shared.reverseButtons ? .on : .off
+        
+        // Launch at Login Button State
+        self.menuBarExtra.menu?.item(withTag: 3)?.state = LaunchAtLogin.isEnabled ? .on : .off
     }
 }
 
