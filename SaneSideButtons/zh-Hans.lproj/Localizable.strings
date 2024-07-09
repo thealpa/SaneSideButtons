@@ -15,7 +15,7 @@
 "launchAtLogin" = "登录时启动";
 "version" = "版本 %@";
 "about" = "关于";
-"quit" = "推出";
+"quit" = "退出";
 
 // MARK: - Permissions Window
 
