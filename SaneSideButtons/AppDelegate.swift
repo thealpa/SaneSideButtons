@@ -7,11 +7,25 @@
 
 import AppKit
 import SwiftUI
+import ServiceManagement
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var frontmostAppBundleID: String?
     private var permissionWindow: NSWindow?
+    private var isLaunchAtLoginEnabled: Bool {
+        get { SMAppService.mainApp.status == .enabled }
+        set {
+            if newValue {
+                if SMAppService.mainApp.status == .enabled {
+                    try? SMAppService.mainApp.unregister()
+                }
+                try? SMAppService.mainApp.register()
+            } else {
+                try? SMAppService.mainApp.unregister()
+            }
+        }
+    }
 
     // MARK: - Menu Bar
 
@@ -41,6 +55,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let title = NSLocalizedString("reverse", comment: "Reverse buttons")
         let item = NSMenuItem(title: title, action: #selector(self.toggleReverse), keyEquivalent: "")
         item.tag = 2
+        return item
+    }()
+
+    private lazy var menuItemLaunchAtLogin: NSMenuItem = {
+        let title = NSLocalizedString("launchAtLogin", comment: "Launch at Login")
+        let item = NSMenuItem(title: title, action: #selector(self.toggleLaunchAtLogin), keyEquivalent: "")
+        item.tag = 3
         return item
     }()
 
@@ -98,6 +119,7 @@ private extension AppDelegate {
             .separator(),
             self.menuItemIgnore,
             self.menuItemReverse,
+            self.menuItemLaunchAtLogin,
             .separator(),
             self.menuItemVersion,
             self.menuItemAbout,
@@ -133,6 +155,10 @@ private extension AppDelegate {
 
     @objc private func toggleReverse() {
         SwipeSimulator.shared.toggleReverseButtons()
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        self.isLaunchAtLoginEnabled.toggle()
     }
 
     // MARK: - Setup & Permissions
@@ -215,6 +241,9 @@ extension AppDelegate: NSMenuDelegate {
 
         // Reverse Buttons State
         self.menuBarExtra.menu?.item(withTag: 2)?.state = SwipeSimulator.shared.areButtonsReversed() ? .on : .off
+
+        // Launch at Login Button State
+        self.menuBarExtra.menu?.item(withTag: 3)?.state = self.isLaunchAtLoginEnabled ? .on : .off
     }
 }
 
