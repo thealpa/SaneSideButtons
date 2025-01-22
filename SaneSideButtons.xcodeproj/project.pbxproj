@@ -96,7 +96,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D0687FC28FC3A6E00EFFFBA /* Build configuration list for PBXNativeTarget "SaneSideButtons" */;
 			buildPhases = (
-				3D06880C28FC3EA700EFFFBA /* ShellScript */,
 				3D0687E928FC3A6D00EFFFBA /* Sources */,
 				3D0687EA28FC3A6D00EFFFBA /* Frameworks */,
 				3D0687EB28FC3A6D00EFFFBA /* Resources */,
@@ -104,6 +103,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3D95DB902D40F3FF00A8AC70 /* PBXTargetDependency */,
 			);
 			name = SaneSideButtons;
 			productName = SaneSideButtons;
@@ -118,7 +118,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					3D0687EC28FC3A6D00EFFFBA = {
 						CreatedOnToolsVersion = 14.1;
@@ -135,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 3D0687E428FC3A6D00EFFFBA;
+			packageReferences = (
+				3D95DB8E2D40F3EC00A8AC70 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			productRefGroup = 3D0687EE28FC3A6D00EFFFBA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -157,27 +160,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3D06880C28FC3EA700EFFFBA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3D0687E928FC3A6D00EFFFBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -192,6 +174,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D95DB902D40F3FF00A8AC70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 3D95DB8F2D40F3FF00A8AC70 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3D20D347298EB4AE00D74D28 /* Localizable.strings */ = {
@@ -243,6 +232,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -305,6 +295,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -417,6 +408,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3D95DB8E2D40F3EC00A8AC70 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3D95DB8F2D40F3FF00A8AC70 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D95DB8E2D40F3EC00A8AC70 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D0687E528FC3A6D00EFFFBA /* Project object */;
 }
