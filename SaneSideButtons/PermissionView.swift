@@ -9,11 +9,6 @@ import SwiftUI
 
 struct PermissionView: View {
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    private let closeWindow: @MainActor () -> Void
-
-    init(closeWindow: @escaping () -> Void) {
-        self.closeWindow = closeWindow
-    }
 
     var body: some View {
         VStack {
@@ -41,10 +36,10 @@ struct PermissionView: View {
         }
     }
 
-    @MainActor private func pollPermissions() {
+    private func pollPermissions() {
         do {
             try SwipeSimulator.shared.setupEventTap()
-            self.closeWindow()
+            NSApplication.shared.mainWindow?.close()
         } catch {
             return
         }
@@ -138,5 +133,5 @@ struct PermissionContentView: View {
 }
 
 #Preview {
-    PermissionView(closeWindow: { })
+    PermissionView()
 }

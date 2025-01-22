@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-final class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
+final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var currentFrontAppBundleID: String?
     private var window: NSWindow?
@@ -134,20 +134,18 @@ private extension AppDelegate {
     }
 
     @objc private func toggleReverse() {
-        SwipeSimulator.shared.reverseButtons.toggle()
+        SwipeSimulator.shared.toggleReverseButtons()
     }
 
     // MARK: - Setup & Permissions
 
-    private func setupTapWithPermissions() {
+    @MainActor private func setupTapWithPermissions() {
         self.getEventPermission()
         do {
             try SwipeSimulator.shared.setupEventTap()
         } catch {
             if self.window == nil {
-                Task {
-                    await self.promptPermissions()
-                }
+                self.promptPermissions()
             }
         }
     }
@@ -194,7 +192,7 @@ private extension AppDelegate {
 extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         // Permission Detection
-        if !SwipeSimulator.shared.eventTapIsRunning {
+        if !SwipeSimulator.shared.isEventTapRunning() {
             NSApplication.shared.activate(ignoringOtherApps: true)
             if self.window == nil {
                 self.promptPermissions()
@@ -213,7 +211,7 @@ extension AppDelegate: NSMenuDelegate {
         self.currentFrontAppBundleID = frontAppBundleID
         let localizedString = NSLocalizedString("ignore", comment: "Ignore app menu item")
         let ignoreString = String.localizedStringWithFormat(localizedString, frontAppName)
-        if !SwipeSimulator.shared.ignoredApplications.contains(frontAppBundleID) {
+        if !SwipeSimulator.shared.ignoredApplicationsContain(frontAppBundleID) {
             self.menuBarExtra.menu?.item(withTag: 1)?.state = .off
             self.menuBarExtra.menu?.item(withTag: 1)?.action = #selector(self.ignore)
         } else {
@@ -224,7 +222,7 @@ extension AppDelegate: NSMenuDelegate {
         self.menuBarExtra.menu?.item(withTag: 1)?.title = ignoreString
 
         // Reverse Buttons State
-        self.menuBarExtra.menu?.item(withTag: 2)?.state = SwipeSimulator.shared.reverseButtons ? .on : .off
+        self.menuBarExtra.menu?.item(withTag: 2)?.state = SwipeSimulator.shared.areButtonsReversed() ? .on : .off
     }
 }
 
