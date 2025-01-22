@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  SaneSideButtons
+
+  Created by Jan Hülsmann on 05.01.23.
+  
+*/
+
+// MARK: - Menu Bar
+
+"hide" = "隐藏菜单栏图标";
+"hideInfo" = "重新启动应用程序以再次显示";
+"ignore" = "忽略 %@";
+"reverse" = "反转按键";
+"launchAtLogin" = "登录时启动";
+"version" = "版本 %@";
+"about" = "关于";
+"quit" = "退出";
+
+// MARK: - Permissions Window
+
+"authorize_title" = "授权 SaneSideButtons";
+"authorize_subtitle" = "我们马上就能让您准备就绪！";
+"authorize_description" = "SaneSideButtons 需要您的授权才能在应用程序中检测鼠标事件并触发操作，请按照以下步骤进行授权：";
+"settings" = "前往系统设置";
+"privacy" = "隐私与安全性";
+"add_to %@ %@" = "添加 SaneSideButtons 到 %@ & %@";
+"a11y" = "辅助功能";
+"input_monitoring" = "输入监控";
