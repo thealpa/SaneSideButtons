@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -127,7 +127,6 @@
 				};
 			};
 			buildConfigurationList = 3D0687E828FC3A6D00EFFFBA /* Build configuration list for PBXProject "SaneSideButtons" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -138,6 +137,7 @@
 			packageReferences = (
 				3D95DB8E2D40F3EC00A8AC70 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 3D0687EE28FC3A6D00EFFFBA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
