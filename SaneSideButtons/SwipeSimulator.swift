@@ -62,7 +62,7 @@ final class SwipeSimulator: Sendable {
     func toggleReverseButtons() {
         self.reverseButtons.withLock { reversed in
             reversed.toggle()
-            UserDefaults.standard.set(reversed, forKey: Keys.ignored)
+            UserDefaults.standard.set(reversed, forKey: Keys.reverse)
         }
     }
 
