@@ -43,10 +43,14 @@ final class SwipeSimulator: Sendable {
     /// Whether the CGEvent tap is currently active.
     private let eventTapIsRunning: Mutex<Bool> = Mutex(false)
 
+    private static let defaultIgnoredApplications: Set<String> = ["com.microsoft.VSCode"]
+
     /// A set of bundle identifiers that are ignored.
-    private let ignoredApplications: Mutex<Set<String>> = Mutex(
-        Set(UserDefaults.standard.stringArray(forKey: Keys.ignored) ?? [])
-    )
+    private let ignoredApplications: Mutex<Set<String>> = {
+        let saved = Set(UserDefaults.standard.stringArray(forKey: Keys.ignored) ?? [])
+        let merged = saved.union(defaultIgnoredApplications)
+        return Mutex(merged)
+    }()
 
     /// Whether the swipe direction is reversed (e.g. right <-> left).
     private let reverseButtons: Mutex<Bool> = Mutex(UserDefaults.standard.bool(forKey: Keys.reverse))
